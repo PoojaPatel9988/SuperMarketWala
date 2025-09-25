@@ -1,7 +1,6 @@
 package com.example.seventh_project_super_market_wala.controller;
 
 import java.util.List;
-
 import java.util.ArrayList;
 import com.example.seventh_project_super_market_wala.model.Category;
 import com.example.seventh_project_super_market_wala.service.CategoryService;
@@ -33,6 +32,7 @@ public class CategoryController {
 			return ResponseEntity.ok().body(categories);
 		}
 		
+		//I want to return single category based on id to the user.
 		@GetMapping("/categories/g/{categoryId}")
         ResponseEntity<Category> getCategory( @PathVariable Long categoryId){
 			Category cat = categoryService.getCategory(categoryId);

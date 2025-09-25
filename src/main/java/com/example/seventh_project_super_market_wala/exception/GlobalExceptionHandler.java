@@ -14,7 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(NotFoundException.class)
+//    @ExceptionHandler(NotFoundException.class)
+	@ExceptionHandler
 	public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex, HttpServletRequest req){
 		ErrorResponse body= new ErrorResponse(
 				Instant.now().toString(),
