@@ -42,9 +42,23 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
 
 	    @Override
 	    public String updateCategory(Long categoryId, Category category) {
-	        Category existing = getCategory(categoryId);
-	        existing.setCategoryName(category.getCategoryName());
-	        categoryRepository.save(existing); // DB में update करो
-	        return "Category updated successfully!";
+	    	Optional<Category> existingCategory = categoryRepository.findById(categoryId);
+	    			
+	    	if(existingCategory.isPresent())
+	    	{
+	    		Category c = existingCategory.get();
+	    		c.setCategoryName(category.getCategoryName());
+	    		categoryRepository.save(c);
+	    		return "Category with id: " + categoryId + " updated successfully!";
+	    	}else
+	    	{
+	    		return "Failed to update: Category with id " + categoryId + " not found.";
+	    	}
+//	        Category existing = getCategory(categoryId);
+//	        existing.setCategoryName(category.getCategoryName());
+//	        categoryRepository.save(existing); // DB में update करो
+//	        return "Category updated successfully!";
+	    
 	    }
+	    
 	}
