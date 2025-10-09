@@ -13,11 +13,11 @@ public interface CategoryService {
 	public Category getCategory(Long categoryId);
 	
     //post Category
-	public String addCategory(Category category);
+	public Category addCategory(Category category);
 	
 	//delete category
-	public String deleteCategory(Long categoryId);
+	public Category deleteCategory(Long categoryId);
 	
     //put category 
-	public String updateCategory(Long categoryId, Category category);
+	public Category updateCategory(Long categoryId, Category category);
 }

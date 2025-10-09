@@ -16,7 +16,9 @@ public class GlobalExceptionHandler {
 	
 //    @ExceptionHandler(NotFoundException.class)
 	@ExceptionHandler
-	public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex, HttpServletRequest req){
+	public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex, HttpServletRequest req)
+	{
+		//using record
 		ErrorResponse body= new ErrorResponse(
 				Instant.now().toString(),
 				HttpStatus.NOT_FOUND.value(),

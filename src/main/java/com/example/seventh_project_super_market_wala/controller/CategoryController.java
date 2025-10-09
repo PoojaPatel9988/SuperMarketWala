@@ -27,34 +27,39 @@ public class CategoryController {
 		private CategoryService categoryService;
 		
 		@GetMapping("/categories")
-		ResponseEntity<List<Category>> getCategories(){
+		ResponseEntity<List<Category>> getCategories()
+		{
 			List<Category> categories = categoryService.getCategories();
 			return ResponseEntity.ok().body(categories);
 		}
 		
 		//I want to return single category based on id to the user.
 		@GetMapping("/categories/g/{categoryId}")
-        ResponseEntity<Category> getCategory( @PathVariable Long categoryId){
-			Category cat = categoryService.getCategory(categoryId);
-			return ResponseEntity.ok().body(cat);
+        ResponseEntity<Category> getCategory( @PathVariable Long categoryId)
+		{
+ 			Category cat = categoryService.getCategory(categoryId);
+  			return ResponseEntity.ok().body(cat);
 		}
 		
 		@PostMapping("/categories/p")
-		ResponseEntity<String> addCategory(@RequestBody Category category){
-			String message = categoryService.addCategory(category);
-			return ResponseEntity.accepted().body(message);
+		ResponseEntity<Category> addCategory(@RequestBody Category category)
+		{
+			Category addCategory = categoryService.addCategory(category);
+			return ResponseEntity.accepted().body(addCategory);
+			
 		}
 	    
 		@DeleteMapping("/categories/d/{catId}")
-		ResponseEntity<String> removeCategory(@PathVariable("catId") Long categoryId) {
-			String message = categoryService.deleteCategory(categoryId);
-			return ResponseEntity.ok().body(message);
+		ResponseEntity<Category> removeCategory(@PathVariable("catId") Long categoryId)
+		{
+			Category deleteCategory = categoryService.deleteCategory(categoryId);
+			return ResponseEntity.ok().body(deleteCategory);
 		}
 		
 		@PutMapping("/categories/u/{categoryId}")
-		ResponseEntity<String> updateCategory( @PathVariable("categoryId")Long categoryId, @RequestBody Category category)
+		ResponseEntity<Category> updateCategory( @PathVariable("categoryId")Long categoryId, @RequestBody Category category)
 		{
-			String message = categoryService.updateCategory(categoryId, category);
-			return ResponseEntity.ok().body(message);
+			Category updateCategory = categoryService.updateCategory(categoryId, category);
+			return ResponseEntity.ok().body(updateCategory);
 		}
 }

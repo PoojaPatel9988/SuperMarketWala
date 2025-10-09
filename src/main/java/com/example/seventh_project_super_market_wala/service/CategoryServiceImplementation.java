@@ -28,36 +28,53 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
 	    }
 
 	    @Override
-	    public String addCategory(Category category) {
+	    public Category addCategory(Category category) {
 	        categoryRepository.save(category); // DB में save करो
-	        return "Category with id: " + category.getCategoryId() + " added successfully!";
+	        //return "Category with id: " + category.getCategoryId() + " added successfully!";
+	        return category;
 	    }
 
 	    @Override
-	    public String deleteCategory(Long categoryId) {
-	        Category existing = getCategory(categoryId);
-	        categoryRepository.delete(existing); // DB से delete करो
-	        return "Category deleted successfully!";
+	    public Category deleteCategory(Long categoryId) {
+	    	
+//	        Category existing = getCategory(categoryId);
+//	        categoryRepository.delete(existing); // DB से delete करो
+//	        //return "Category deleted successfully!";
+//	        return category;
+	    	
+        Optional<Category> existingCategory = categoryRepository.findById(categoryId);
+	    	
+        if(existingCategory.isPresent())
+    	{
+    		Category c = existingCategory.get();
+    		categoryRepository.delete(c);
+    		return c;
+    	}else
+    	{
+    		throw new NotFoundException("category not found");
+    	}
 	    }
 
 	    @Override
-	    public String updateCategory(Long categoryId, Category category) {
+	    public Category updateCategory(Long categoryId, Category category) {
+	    	
+//	        Category existing = getCategory(categoryId);
+//	        existing.setCategoryName(category.getCategoryName());
+//	        categoryRepository.save(existing); // DB में update करो
+//	        return "Category updated successfully!";
+	    	
 	    	Optional<Category> existingCategory = categoryRepository.findById(categoryId);
-	    			
+			
 	    	if(existingCategory.isPresent())
 	    	{
 	    		Category c = existingCategory.get();
 	    		c.setCategoryName(category.getCategoryName());
 	    		categoryRepository.save(c);
-	    		return "Category with id: " + categoryId + " updated successfully!";
+	    		return c;
 	    	}else
 	    	{
-	    		return "Failed to update: Category with id " + categoryId + " not found.";
+	    		throw new NotFoundException("category not found");
 	    	}
-//	        Category existing = getCategory(categoryId);
-//	        existing.setCategoryName(category.getCategoryName());
-//	        categoryRepository.save(existing); // DB में update करो
-//	        return "Category updated successfully!";
 	    
 	    }
 	    
