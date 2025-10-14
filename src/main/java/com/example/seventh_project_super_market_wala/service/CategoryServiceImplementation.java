@@ -3,11 +3,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.seventh_project_super_market_wala.model.Category;
 import com.example.seventh_project_super_market_wala.repo.CategoryRepository;
+
+import ch.qos.logback.core.model.SerializeModelModel;
+
+import com.example.seventh_project_super_market_wala.dto.CategoryDTO;
 import com.example.seventh_project_super_market_wala.exception.NotFoundException;
 
 	@Service
@@ -15,27 +21,51 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
 
 	    @Autowired
 	    private CategoryRepository categoryRepository; // Repository inject की
+	    
+	    @Autowired
+	    private ModelMapper modelMapper;
 
 	    @Override
-	    public List<Category> getCategories() {
-	        return categoryRepository.findAll(); // DB से data लाओ
+	    public CategoryDTO getCategories() {
+	    	ListCrudRepository<Category, Long> categoryRespository = null;
+			List<Category> categories = categoryRespository.findAll();
+	    	List<CategoryDTO> convertedCategories = categories.stream()
+	    			.map(cat -> modelMapper.map(cat, CategoryDTO.class))
+	    			.toList();
+	    	
+	    	CategoryDTO categoryResponse = new CategoryDTO();
+	    	categoryResponse.setContent(convertedCategories);
+	    	
+	        return categoryResponse; // DB से data लाओ
+	    }
+	    
+	    @Override
+	    public List<CategoryDTO> getCategories() {
+	        List<Category> categories = categoryRepository.findAll();
+	        List<CategoryDTO> categoryDTOs = new ArrayList<>();
+
+	        for (Category category : categories) {
+	            CategoryDTO dto = modelMapper.map(category, CategoryDTO.class);
+	            categoryDTOs.add(dto);
+	        }
+
+	        return categoryDTOs;
 	    }
 
 	    @Override
 	    public Category getCategory(Long categoryId) {
-	        return categoryRepository.findById(categoryId)
-	                .orElseThrow(() -> new NotFoundException("Category with id " + categoryId + " not found"));
+	    	Optional<Category> category = categoryRepository.findById(categoryId);
+	        return category.orElseThrow(() -> new NotFoundException("Category with id " + categoryId + " not found"));
 	    }
 
-	    @Override
-	    public Category addCategory(Category category) {
+	    public CategoryDTO addCategory(CategoryDTO categoryDTO) {
+	    	Category category = modelMapper.map(categoryDTO, Category.class);
 	        categoryRepository.save(category); // DB में save करो
-	        //return "Category with id: " + category.getCategoryId() + " added successfully!";
-	        return category;
+	        return modelMapper.map(category, CategoryDTO.class);
 	    }
 
 	    @Override
-	    public Category deleteCategory(Long categoryId) {
+	    public CategoryDTO deleteCategory(Long categoryId) {
 	    	
 //	        Category existing = getCategory(categoryId);
 //	        categoryRepository.delete(existing); // DB से delete करो
@@ -48,7 +78,7 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
     	{
     		Category c = existingCategory.get();
     		categoryRepository.delete(c);
-    		return c;
+    		return modelMapper.map(c, CategoryDTO.class);
     	}else
     	{
     		throw new NotFoundException("category not found");
@@ -56,7 +86,7 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
 	    }
 
 	    @Override
-	    public Category updateCategory(Long categoryId, Category category) {
+	    public CategoryDTO updateCategory(Long categoryId, Category category) {
 	    	
 //	        Category existing = getCategory(categoryId);
 //	        existing.setCategoryName(category.getCategoryName());
@@ -70,12 +100,16 @@ import com.example.seventh_project_super_market_wala.exception.NotFoundException
 	    		Category c = existingCategory.get();
 	    		c.setCategoryName(category.getCategoryName());
 	    		categoryRepository.save(c);
-	    		return c;
+	    		return modelMapper.map(c, CategoryDTO.class);
 	    	}else
 	    	{
 	    		throw new NotFoundException("category not found");
 	    	}
 	    
 	    }
-	    
+
+
+
+		
+	
 	}

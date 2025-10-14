@@ -1,7 +1,10 @@
 package com.example.seventh_project_super_market_wala.controller;
 
 import java.util.List;
+import java.net.CacheResponse;
 import java.util.ArrayList;
+
+import com.example.seventh_project_super_market_wala.dto.CategoryDTO;
 import com.example.seventh_project_super_market_wala.model.Category;
 import com.example.seventh_project_super_market_wala.service.CategoryService;
 
@@ -27,12 +30,12 @@ public class CategoryController {
 		private CategoryService categoryService;
 		
 		@GetMapping("/categories")
-		ResponseEntity<List<Category>> getCategories()
+		ResponseEntity<CategoryDTO> getCategories()
 		{
-			List<Category> categories = categoryService.getCategories();
+			CategoryDTO categories = categoryService.getCategories();
 			return ResponseEntity.ok().body(categories);
-		}
-		
+		}			
+	
 		//I want to return single category based on id to the user.
 		@GetMapping("/categories/g/{categoryId}")
         ResponseEntity<Category> getCategory( @PathVariable Long categoryId)
@@ -42,24 +45,24 @@ public class CategoryController {
 		}
 		
 		@PostMapping("/categories/p")
-		ResponseEntity<Category> addCategory(@RequestBody Category category)
+		ResponseEntity<CategoryDTO> addCategory(@RequestBody CategoryDTO categoryDTO)
 		{
-			Category addCategory = categoryService.addCategory(category);
+			CategoryDTO addCategory = categoryService.addCategory(categoryDTO);
 			return ResponseEntity.accepted().body(addCategory);
 			
 		}
 	    
 		@DeleteMapping("/categories/d/{catId}")
-		ResponseEntity<Category> removeCategory(@PathVariable("catId") Long categoryId)
+		ResponseEntity<CategoryDTO> removeCategory(@PathVariable("catId") Long categoryId)
 		{
-			Category deleteCategory = categoryService.deleteCategory(categoryId);
+			CategoryDTO deleteCategory = categoryService.deleteCategory(categoryId);
 			return ResponseEntity.ok().body(deleteCategory);
 		}
 		
 		@PutMapping("/categories/u/{categoryId}")
-		ResponseEntity<Category> updateCategory( @PathVariable("categoryId")Long categoryId, @RequestBody Category category)
+		ResponseEntity<CategoryDTO> updateCategory( @PathVariable("categoryId")Long categoryId, @RequestBody Category category)
 		{
-			Category updateCategory = categoryService.updateCategory(categoryId, category);
+			CategoryDTO updateCategory = categoryService.updateCategory(categoryId, category);
 			return ResponseEntity.ok().body(updateCategory);
 		}
 }

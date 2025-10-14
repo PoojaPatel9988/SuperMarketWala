@@ -1,5 +1,7 @@
 package com.example.seventh_project_super_market_wala.dto;
 
+import java.util.List;
+
 public class CategoryDTO {
 	
 	private Long categoryId;
@@ -21,6 +23,7 @@ public class CategoryDTO {
 		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
 	
+
 	
 
 }
