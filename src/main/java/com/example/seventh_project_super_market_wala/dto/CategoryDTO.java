@@ -1,11 +1,10 @@
 package com.example.seventh_project_super_market_wala.dto;
 
-import java.util.List;
-
 public class CategoryDTO {
 	
 	private Long categoryId;
 	private String categoryName;
+	
 	public Long getCategoryId() {
 		return categoryId;
 	}
