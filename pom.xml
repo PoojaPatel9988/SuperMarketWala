@@ -30,41 +30,64 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
+		<dependency><!--web dependency-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
+		<dependency><!--dev dependency-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
+		
+		<dependency><!--spring security maven dependency-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		
+		<dependency><!--H2 dependency-->
     		<groupId>com.h2database</groupId>
     		<artifactId>h2</artifactId>
     		<scope>runtime</scope>    		
 		</dependency>
-		<dependency>
+		
+		<dependency><!--jpa dependency-->
       		<groupId>org.springframework.boot</groupId>
       		<artifactId>spring-boot-starter-data-jpa</artifactId>
     	</dependency>
-    	<dependency>
+    	
+    	<dependency><!--Lombok dependency-->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        
+        <dependency><!--model mapper dependency-->
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>3.2.4</version>
         </dependency>
+        
+        <dependency><!--spring security maven dependency-->
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-security</artifactId>
+    	</dependency>
+
+    	<dependency><!--spring security maven dependency-->
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-test</artifactId>
+      		<scope>test</scope>
+    	</dependency>
+    	
+    	<dependency><!--spring security maven dependency-->
+      		<groupId>org.springframework.security</groupId>
+      		<artifactId>spring-security-test</artifactId>
+      		<scope>test</scope>
+    	</dependency>
+      		
 	</dependencies>
 
 	<build>

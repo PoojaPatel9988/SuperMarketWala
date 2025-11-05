@@ -46,7 +46,10 @@ import com.example.seventh_project_super_market_wala.repo.CategoryRepository;
 			categoryResponse.setContent(convertedCategories);
 			categoryResponse.setTotalElement(categories.getTotalElements());
 			categoryResponse.setTotalPages(categories.getTotalPages());
-			
+			categoryResponse.setNumber(categories.getNumber());
+			categoryResponse.setSize(categories.getSize());
+			categoryResponse.setTotalNumberOfElements(categories.getNumberOfElements());
+			categoryResponse.setIslastPage(categories.isLast());
 			return categoryResponse; // DB से data लाओ
 	    }
 	    
